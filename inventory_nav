@@ -1,0 +1,60 @@
+function inventory_nav() {
+
+
+
+	if paused_{
+		if enabled == false exit;{
+		var _array_size = array_length_1d(global.inventory);
+		if o_input.right_pressed {
+			item_index_ = min(item_index_ +1, _array_size-1);
+			audio_play_sound(a_menu_move,1,false);
+		}else if o_input.left_pressed {
+			item_index_ = max(item_index_ -1, 0);
+			audio_play_sound(a_menu_move,1,false);
+		}else if o_input.up_pressed {
+			item_index_ = max(item_index_ -3, 0);
+			audio_play_sound(a_menu_move,1,false);
+		}else if o_input.down_pressed {
+			item_index_ = min(item_index_ +3, _array_size-1);
+			audio_play_sound(a_menu_move,1,false);	
+			}
+		}
+		if o_input.back {
+			if inventory_selection_ = true{
+				instance_destroy(o_inventory_menu);
+				inventory_selection_ = false;
+				}
+				if o_game.paused_{
+			o_game.paused_ = false;
+			if sprite_exists(o_game.paused_sprite_){
+				sprite_delete(o_game.paused_sprite_);
+			}
+			instance_activate_all();
+			o_elizabeth.state = elizabeth_move_state;
+			audio_play_sound(a_menu_select,5,false);
+			}			
+		}
+		if o_input.action {
+			
+				instance_create(x,y,o_inventory_menu);
+				inventory_selection_ = true;
+				enabled = false;
+				audio_play_sound(a_menu_move,1,false);
+		
+		}
+		if o_input.action_10 {
+			if inventory_selection_ = false && inventory_page == 0{
+				inventory_page++;
+				audio_play_sound(a_menu_move,1,false);			
+			}else{ 
+				if inventory_selection_ = false && inventory_page ==1{
+				inventory_page--;
+				audio_play_sound(a_menu_move,1,false);
+				}
+			}
+		}
+	}
+
+
+
+}
